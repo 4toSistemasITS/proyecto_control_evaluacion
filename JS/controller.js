@@ -1,0 +1,63 @@
+'use strict';
+var app = angular.module('myApp', ['ui.router'])
+.config(function($stateProvider,$urlRouterProvider){
+	$stateProvider
+	.state('principal',{
+		url:'/principal',
+		templateUrl:'vistas/principal.html',
+		controller:'vistaPrincipal'
+	})
+	.state('login',{
+		url:'/login',
+		templateUrl:'vistas/login.html',
+		controller:'vistaLogin'
+	})
+	.state('cuestionario',{
+		url:'/cuestionario',
+		templateUrl:'vistas/cuestionario.html',
+		controller:'vistaCuestionario'
+	})
+	.state('tutorial',{
+		url:'/tutorial',
+		templateUrl:'vistas/tutorial.html',
+		controller:'vistaTutorial'
+	})
+	.state('docentes',{
+		url:'/docentes',
+		templateUrl:'vistas/docentes.html',
+		controller:'vistaDocentes'
+	})
+	$urlRouterProvider.otherwise('/principal');
+});
+app.controller('vistaPrincipal',function($scope,$state){
+	$scope.ventana=function(){
+		$state.go('login')
+	} 
+});
+app.controller('vistaLogin',function($scope,$state){
+	$scope.cambiar=function(){
+		if ($scope.user=="Valeria" && $scope.psw=="1234") {
+			$state.go('tutorial');	
+		}	
+	}
+});
+app.controller('vistaTutorial',function($scope,$state){
+	$scope.informacion=function(){
+		$state.go('docentes')
+	}
+	$scope.inicio=function(){
+		$state.go('principal')
+	}
+});
+app.controller('vistaDocentes',function($scope,$state){
+	$scope.lista=function(){
+		$state.go('cuestionario')
+	}
+});
+app.controller('vistaCuestionario',function($scope,$state){
+});
+app.controller('enviardatos',function($scope,$state){
+	$scope.enviard=function(){
+		$state.go('cuestionario')
+	}
+});
